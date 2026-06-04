@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Auth API Tester</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body class="bg-slate-100 min-h-screen">
+
+    <div id="app" class="container mx-auto p-6">
+
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-slate-800">
+                Laravel Authentication Tester
+            </h1>
+            <p class="text-slate-500 mt-2">
+                Vue CDN + TailwindCSS + Laravel Sanctum
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- REGISTER -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4 text-green-600">
+                    Registro
+                </h2>
+
+                <div class="space-y-4">
+                    <input
+                        v-model="registerForm.name"
+                        type="text"
+                        placeholder="Nombre"
+                        class="w-full border rounded-lg p-3">
+
+                    <input
+                        v-model="registerForm.email"
+                        type="email"
+                        placeholder="Correo"
+                        class="w-full border rounded-lg p-3">
+
+                    <input
+                        v-model="registerForm.password"
+                        type="password"
+                        placeholder="Contraseña"
+                        class="w-full border rounded-lg p-3">
+
+                    <button
+                        @click="register"
+                        class="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg">
+                        Registrar
+                    </button>
+                </div>
+            </div>
+
+            <!-- LOGIN -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4 text-blue-600">
+                    Login
+                </h2>
+
+                <div class="space-y-4">
+                    <input
+                        v-model="loginForm.email"
+                        type="email"
+                        placeholder="Correo"
+                        class="w-full border rounded-lg p-3">
+
+                    <input
+                        v-model="loginForm.password"
+                        type="password"
+                        placeholder="Contraseña"
+                        class="w-full border rounded-lg p-3">
+
+                    <button
+                        @click="login"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg">
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TOKEN -->
+
+        <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-purple-600">
+                    Token
+                </h2>
+
+                <button
+                    @click="clearToken"
+                    class="bg-red-500 text-white px-4 py-2 rounded">
+                    Limpiar
+                </button>
+            </div>
+
+            <textarea
+                v-model="token"
+                rows="4"
+                class="w-full border rounded-lg p-3 font-mono text-sm">
+            </textarea>
+        </div>
+
+        <!-- ACTIONS -->
+
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+
+                <h2 class="text-xl font-bold mb-4 text-indigo-600">
+                    Perfil
+                </h2>
+
+                <button
+                    @click="getProfile"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-lg">
+                    Obtener Perfil
+                </button>
+
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6">
+
+                <h2 class="text-xl font-bold mb-4 text-red-600">
+                    Logout
+                </h2>
+
+                <button
+                    @click="logout"
+                    class="w-full bg-red-600 hover:bg-red-700 text-white p-3 rounded-lg">
+                    Cerrar Sesión
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- RESPONSE -->
+
+        <div class="bg-slate-900 text-green-400 rounded-xl shadow-lg p-6 mt-6">
+
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">
+                    Respuesta API
+                </h2>
+
+                <button
+                    @click="response = ''"
+                    class="bg-slate-700 px-4 py-2 rounded">
+                    Limpiar
+                </button>
+            </div>
+
+            <pre class="overflow-auto whitespace-pre-wrap">{{ response }}</pre>
+
+        </div>
+
+    </div>
+
+    <script>
+        const {
+            createApp
+        } = Vue;
+
+        createApp({
+
+            data() {
+                return {
+
+                    apiUrl: 'http://localhost:8000/api/v1/auth',
+
+                    token: localStorage.getItem('token') || '',
+
+                    response: '',
+
+                    registerForm: {
+                        name: '',
+                        email: '',
+                        password: ''
+                    },
+
+                    loginForm: {
+                        email: '',
+                        password: ''
+                    }
+                }
+            },
+
+            methods: {
+
+                async register() {
+
+                    try {
+
+                        const res = await fetch(
+                            `${this.apiUrl}/register`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(this.registerForm)
+                            });
+
+                        const data = await res.json();
+
+                        this.response = JSON.stringify(
+                            data,
+                            null,
+                            2
+                        );
+
+                    } catch (error) {
+
+                        this.response = error.message;
+
+                    }
+
+                },
+
+                async login() {
+
+                    try {
+
+                        const res = await fetch(
+                            `${this.apiUrl}/login`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(this.loginForm)
+                            });
+
+                        const data = await res.json();
+
+                        this.response = JSON.stringify(
+                            data,
+                            null,
+                            2
+                        );
+
+                        if (data.token) {
+
+                            this.token = data.token;
+
+                            localStorage.setItem(
+                                'token',
+                                data.token
+                            );
+                        }
+
+                    } catch (error) {
+
+                        this.response = error.message;
+
+                    }
+
+                },
+
+                async getProfile() {
+
+                    try {
+
+                        const res = await fetch(
+                            `${this.apiUrl}/profile`, {
+                                method: 'GET',
+                                headers: {
+                                    Accept: 'application/json',
+                                    Authorization: `Bearer ${this.token}`
+                                }
+                            });
+
+                        const data = await res.json();
+
+                        this.response = JSON.stringify(
+                            data,
+                            null,
+                            2
+                        );
+
+                    } catch (error) {
+
+                        this.response = error.message;
+
+                    }
+
+                },
+
+                async logout() {
+
+                    try {
+
+                        const res = await fetch(
+                            `${this.apiUrl}/logout`, {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    Authorization: `Bearer ${this.token}`
+                                }
+                            });
+
+                        const data = await res.json();
+
+                        this.response = JSON.stringify(
+                            data,
+                            null,
+                            2
+                        );
+
+                        this.token = '';
+
+                        localStorage.removeItem('token');
+
+                    } catch (error) {
+
+                        this.response = error.message;
+
+                    }
+
+                },
+
+                clearToken() {
+
+                    this.token = '';
+                    localStorage.removeItem('token');
+
+                }
+
+            }
+
+        }).mount('#app');
+    </script>
+
+</body>
+
+</html>

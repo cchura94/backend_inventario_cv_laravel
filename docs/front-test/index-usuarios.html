@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRUD Usuarios Laravel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100">
+
+<div class="container mx-auto p-6">
+
+    <h1 class="text-4xl font-bold text-center mb-8">
+        CRUD Usuarios Laravel
+    </h1>
+
+    <!-- LOGIN -->
+    <div id="authSection" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+
+        <h2 class="text-2xl font-bold mb-4">
+            Iniciar Sesión
+        </h2>
+
+        <input
+            id="loginEmail"
+            type="email"
+            placeholder="Email"
+            class="w-full border rounded p-2 mb-3">
+
+        <input
+            id="loginPassword"
+            type="password"
+            placeholder="Contraseña"
+            class="w-full border rounded p-2 mb-3">
+
+        <button
+            type="button"
+            onclick="login()"
+            class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+            Ingresar
+        </button>
+
+    </div>
+
+    <!-- APP -->
+    <div id="appSection" class="hidden">
+
+        <!-- PERFIL -->
+        <div class="bg-white rounded shadow p-4 mb-6 flex justify-between">
+
+            <div>
+                <h2 class="font-bold text-xl">Usuario autenticado</h2>
+                <p id="profileInfo"></p>
+            </div>
+
+            <button
+                type="button"
+                onclick="logout()"
+                class="bg-red-600 text-white px-4 py-2 rounded">
+                Logout
+            </button>
+
+        </div>
+
+        <!-- FORM -->
+        <div class="bg-white rounded shadow p-6 mb-6">
+
+            <h2 class="text-2xl font-bold mb-4">
+                Usuario
+            </h2>
+
+            <input type="hidden" id="userId">
+
+            <div class="grid md:grid-cols-3 gap-4">
+
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="Nombre"
+                    class="border p-2 rounded">
+
+                <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    class="border p-2 rounded">
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    class="border p-2 rounded">
+
+            </div>
+
+            <div class="mt-4 flex gap-3">
+
+                <button
+                    type="button"
+                    onclick="saveUser()"
+                    class="bg-green-600 text-white px-4 py-2 rounded">
+                    Guardar
+                </button>
+
+                <button
+                    type="button"
+                    onclick="clearForm()"
+                    class="bg-gray-600 text-white px-4 py-2 rounded">
+                    Limpiar
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- TABLA -->
+        <div class="bg-white rounded shadow p-6">
+
+            <h2 class="text-2xl font-bold mb-4">
+                Usuarios
+            </h2>
+
+            <table class="w-full border-collapse">
+
+                <thead>
+                    <tr class="bg-slate-200">
+                        <th class="border p-2">ID</th>
+                        <th class="border p-2">Nombre</th>
+                        <th class="border p-2">Email</th>
+                        <th class="border p-2">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="usersTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const AUTH_API = "http://localhost:8000/api/v1/auth";
+const USER_API = "http://localhost:8000/api/usuario";
+
+let token = localStorage.getItem("token");
+
+/* ---------- INICIO ---------- */
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    if (!token) return;
+
+    await initApp();
+});
+
+/* ---------- APP ---------- */
+
+async function initApp() {
+
+    document.getElementById("authSection").classList.add("hidden");
+    document.getElementById("appSection").classList.remove("hidden");
+
+    await getProfile();
+    await loadUsers();
+}
+
+/* ---------- LOGIN ---------- */
+
+async function login() {
+
+    try {
+
+        const response = await fetch(`${AUTH_API}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: document.getElementById("loginEmail").value,
+                password: document.getElementById("loginPassword").value
+            })
+        });
+
+        const data = await response.json();
+
+        console.log("LOGIN:", data);
+
+        token = data.token || data.access_token;
+
+        if (!token) {
+            alert("No se recibió token");
+            return;
+        }
+
+        localStorage.setItem("token", token);
+
+        await initApp();
+
+    } catch (error) {
+        console.error(error);
+        alert("Error al iniciar sesión");
+    }
+}
+
+/* ---------- PERFIL ---------- */
+
+async function getProfile() {
+
+    try {
+
+        const response = await fetch(`${AUTH_API}/profile`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("No autorizado");
+        }
+
+        const user = await response.json();
+
+        document.getElementById("profileInfo").innerHTML =
+            `${user.name} - ${user.email}`;
+
+    } catch (error) {
+
+        console.error(error);
+
+        localStorage.removeItem("token");
+
+        document.getElementById("authSection").classList.remove("hidden");
+        document.getElementById("appSection").classList.add("hidden");
+    }
+}
+
+/* ---------- LOGOUT ---------- */
+
+async function logout() {
+
+    try {
+
+        await fetch(`${AUTH_API}/logout`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+
+    localStorage.removeItem("token");
+    window.location.href = window.location.pathname;
+}
+
+/* ---------- LISTAR ---------- */
+
+async function loadUsers() {
+
+    try {
+
+        const response = await fetch(USER_API, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+
+        const data = await response.json();
+
+        const users = Array.isArray(data)
+            ? data
+            : (data.data || []);
+
+        renderUsers(users);
+
+    } catch (error) {
+
+        console.error(error);
+    }
+}
+
+function renderUsers(users) {
+
+    const table = document.getElementById("usersTable");
+
+    table.innerHTML = "";
+
+    users.forEach(user => {
+
+        table.innerHTML += `
+            <tr>
+                <td class="border p-2">${user.id}</td>
+                <td class="border p-2">${user.name}</td>
+                <td class="border p-2">${user.email}</td>
+                <td class="border p-2">
+
+                    <button
+                        type="button"
+                        onclick="editUser(${user.id})"
+                        class="bg-yellow-500 text-white px-3 py-1 rounded">
+                        Editar
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="deleteUser(${user.id})"
+                        class="bg-red-600 text-white px-3 py-1 rounded">
+                        Eliminar
+                    </button>
+
+                </td>
+            </tr>
+        `;
+    });
+}
+
+/* ---------- EDITAR ---------- */
+
+async function editUser(id) {
+
+    try {
+
+        const response = await fetch(`${USER_API}/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const user = await response.json();
+
+        document.getElementById("userId").value = user.id;
+        document.getElementById("name").value = user.name;
+        document.getElementById("email").value = user.email;
+
+    } catch (error) {
+
+        console.error(error);
+    }
+}
+
+/* ---------- GUARDAR ---------- */
+
+async function saveUser() {
+
+    const id = document.getElementById("userId").value;
+
+    const payload = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
+
+    try {
+
+        if (id) {
+
+            await fetch(`${USER_API}/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+        } else {
+
+            await fetch(USER_API, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+        }
+
+        clearForm();
+        await loadUsers();
+
+    } catch (error) {
+
+        console.error(error);
+    }
+}
+
+/* ---------- ELIMINAR ---------- */
+
+async function deleteUser(id) {
+
+    if (!confirm("¿Eliminar usuario?")) {
+        return;
+    }
+
+    try {
+
+        await fetch(`${USER_API}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        await loadUsers();
+
+    } catch (error) {
+
+        console.error(error);
+    }
+}
+
+/* ---------- LIMPIAR ---------- */
+
+function clearForm() {
+
+    document.getElementById("userId").value = "";
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+}
+
+</script>
+
+</body>
+</html>

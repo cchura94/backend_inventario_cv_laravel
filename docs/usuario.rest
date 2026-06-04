@@ -1,0 +1,34 @@
+GET http://127.0.0.1:8000/api/usuario
+Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+Accept: application/json
+
+### Guardar
+POST http://127.0.0.1:8000/api/usuario
+Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+Content-Type: application/json
+
+{
+    "name": "david",
+    "email": "david@mail.com",
+    "password": "david54321"
+}
+
+### mostrar
+GET http://127.0.0.1:8000/api/usuario/2
+Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+
+
+### modificar
+PUT http://127.0.0.1:8000/api/usuario/3
+Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+Content-Type: application/json
+
+{
+  "name": "juan modificado",
+  "email": "juan.pablo@mail.com",
+  "password": "juan54321"
+}
+
+### eliminar
+DELETE http://127.0.0.1:8000/api/usuario/3
+Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554

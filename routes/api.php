@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,16 @@ Route::prefix('/v1/auth')->group(function(){
     
     });
 });
+
+Route::middleware('auth:sanctum')->group(function(){
+    
+    // CRUD Usuarios Api Rest
+     Route::apiresource("/usuario", UsuarioController::class);
+
+});
+
+
+
+Route::get("/test", function(){
+    
+})->name('login');
