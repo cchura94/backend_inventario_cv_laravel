@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
@@ -26,13 +27,18 @@ Route::prefix('/v1/auth')->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group(function(){
+
+    // asignar roles a usuario
+    Route::put("/usuario/{id}/role", [UsuarioController::class, "asignarRole"]);
     
     // CRUD Usuarios Api Rest
      Route::apiresource("/usuario", UsuarioController::class);
-     
-     });
-     
+     // CRUD Roles Api Rest
      Route::apiResource("/role", RoleController::class);
+     // CRUD Permission Api Rest
+     Route::apiResource("/permission", PermissionController::class);
+});
+     
 
 Route::get("/test", function(){
     

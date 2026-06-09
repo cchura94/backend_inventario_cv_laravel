@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("role_id")->unsigned();
+            $table->unsignedBigInteger("role_id");
             $table->bigInteger("user_id")->unsigned();
 
             $table->foreign("role_id")->references("id")->on("roles");
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::fropIfExists('role_user');
+        Schema::dropIfExists('role_user');
     }
 };

@@ -1,10 +1,10 @@
 GET http://127.0.0.1:8000/api/usuario
-Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
 Accept: application/json
 
 ### Guardar
 POST http://127.0.0.1:8000/api/usuario
-Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
 Content-Type: application/json
 
 {
@@ -15,20 +15,28 @@ Content-Type: application/json
 
 ### mostrar
 GET http://127.0.0.1:8000/api/usuario/2
-Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
 
 
 ### modificar
-PUT http://127.0.0.1:8000/api/usuario/3
-Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+PUT http://127.0.0.1:8000/api/usuario/2
+Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
 Content-Type: application/json
 
 {
-  "name": "juan modificado",
-  "email": "juan.pablo@mail.com",
-  "password": "juan54321"
+  "name": "david",
+  "email": "david@mail.com"
 }
 
 ### eliminar
 DELETE http://127.0.0.1:8000/api/usuario/3
 Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
+
+### Asignar role
+PUT http://127.0.0.1:8000/api/usuario/1/role
+Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
+Content-Type: application/json
+
+{
+  "roles": [1, 2]
+}

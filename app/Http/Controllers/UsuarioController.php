@@ -13,7 +13,7 @@ class UsuarioController extends Controller
     public function index()
     {
         // listar
-        $usuarios = User::get(); // select * from users
+        $usuarios = User::with(['roles'])->get(); // select * from users
 
         return response()->json($usuarios);
 
@@ -60,7 +60,7 @@ class UsuarioController extends Controller
         // validar
         $request->validate([
             "name" => "string",
-            "email" => "email|unique:users,email",
+            "email" => "email|unique:users,email,".$id,
             "password" => "string|min:6"
         ]);
             
@@ -73,7 +73,7 @@ class UsuarioController extends Controller
         }
         $usuario->update();
 
-        return response()->json($usuario, 201);
+        return response()->json(["mensaje" => "Usuario Actualizado", "usuario" => $usuario], 201);
     }
 
     /**
@@ -84,5 +84,13 @@ class UsuarioController extends Controller
         // eliminar
         User::destroy($id); // delete from users where id = $id
         return response()->json(null, 204);
+    }
+
+    public function asignarRole(string $id, Request $request){
+     
+         $usuario= User::find($id);
+         $usuario->roles()->sync($request->roles);
+
+         return response()->json(["mensaje" => "roles asignados correctamente"], 201);
     }
 }
