@@ -12,7 +12,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::get();
+        $roles = Role::with(["permisos"])->get();
 
         return response()->json($roles);
     }
@@ -31,7 +31,7 @@ class RoleController extends Controller
         $role->detalle = $request->detalle;
         $role->save();
 
-        return response()->json();
+        return response()->json(["mensaje" => "Role registrado"], 201);
     }
 
     /**
@@ -51,7 +51,6 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
 
-         $role = new Role();
         $role->nombre = $request->nombre;
         $role->detalle = $request->detalle;
         $role->update();
@@ -69,6 +68,12 @@ class RoleController extends Controller
         $role->delete();
 
         return response()->json(["el role fue eliminado"]);
+    }
 
+    public function asignarPermiso(Request $request, $id){
+        $role = Role::find($id);
+        $role->permisos()->sync($request->permisos);
+
+        return response()->json(["mensaje" => "permisos Asignados"]);
     }
 }

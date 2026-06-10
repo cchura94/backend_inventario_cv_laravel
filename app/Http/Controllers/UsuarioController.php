@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -13,8 +14,9 @@ class UsuarioController extends Controller
     public function index()
     {
         // listar
-        $usuarios = User::with(['roles'])->get(); // select * from users
-
+        // $usuarios = DB::select("SELECT * from users");
+        $usuarios = User::with(['roles'])->paginate(10); // select * from users
+        
         return response()->json($usuarios);
 
     }
@@ -89,8 +91,18 @@ class UsuarioController extends Controller
     public function asignarRole(string $id, Request $request){
      
          $usuario= User::find($id);
-         $usuario->roles()->sync($request->roles);
+         $usuario->asignarRole($request->role);
 
          return response()->json(["mensaje" => "roles asignados correctamente"], 201);
     }
+
+    public function eliminarRole(string $id, Request $request){
+     
+         $usuario= User::find($id);
+         $usuario->quitarRole($request->role);
+
+         return response()->json(["mensaje" => "role quitado"], 200);
+    }
+
+    
 }

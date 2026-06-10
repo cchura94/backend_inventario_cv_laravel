@@ -1,0 +1,42 @@
+### Listar permisos
+GET http://127.0.0.1:8000/api/permiso
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+Accept: application/json
+
+###
+
+### Guardar permiso
+POST http://127.0.0.1:8000/api/permiso
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+Content-Type: application/json
+
+{
+    "nombre": "CREAR_USUARIO",
+    "detalle": "Permite registrar usuarios"
+}
+
+###
+
+### Mostrar permiso
+GET http://127.0.0.1:8000/api/permiso/1
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+Accept: application/json
+
+###
+
+### Modificar permiso
+PUT http://127.0.0.1:8000/api/permiso/1
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+Content-Type: application/json
+
+{
+    "nombre": "EDITAR_USUARIO",
+    "detalle": "Permite editar usuarios"
+}
+
+###
+
+### Eliminar permiso
+DELETE http://127.0.0.1:8000/api/permiso/1
+Authorization: Bearer TU_TOKEN
+Accept: application/json

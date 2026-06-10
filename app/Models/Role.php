@@ -10,8 +10,16 @@ class Role extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function permissions(){
+    public function permisos(){
         return $this->belongsToMany(Permission::class);
+    }
+
+    public function asignarPermiso($permiso){
+        if(is_string($permiso)){
+            $permiso = Permission::where("nombre", $permiso)->firstOrFail();
+        }
+
+        $this->permisos()->sync($permiso, false);
     }
     
 }

@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
@@ -33,5 +34,29 @@ class User extends Authenticatable
 
     public function roles(){
         return $this->belongsToMany(Role::class);
+    }
+
+    public function asignarRole($role){
+        // "ADMIN"
+        // {nombre: "ADMIN", "detalle": "Adminitrador"}
+        if(is_string($role)){
+            $role = Role::where("nombre", "=",  $role)->firstOrFail();
+        }
+
+        $this->roles()->sync($role, false);
+    }
+
+    public function quitarRole($role){
+        // "ADMIN"
+        // {nombre: "ADMIN", "detalle": "Adminitrador"}
+        if(is_string($role)){
+            $role = Role::where("nombre", "=",  $role)->firstOrFail();
+        }
+
+        $this->roles()->detach($role->id);
+    }
+
+    public function permisos(){
+        return $this->roles->map->permisos->flatten()->pluck("nombre")->unique();
     }
 }

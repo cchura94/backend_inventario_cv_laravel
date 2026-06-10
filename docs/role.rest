@@ -1,12 +1,31 @@
 GET http://127.0.0.1:8000/api/role
-Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
 
 
 ###
- POST http://127.0.0.1:8000/api/role
+POST http://127.0.0.1:8000/api/role
+Content-Type: application/json
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+
+{
+    "nombre": "DIRECTOR"
+}
+
+### Modificar
+PUT http://127.0.0.1:8000/api/role/2
+Content-Type: application/json
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+
+{
+    "nombre": "GERENTE",
+    "detalle": "Administrador"
+}
+
+### Asignar permiso
+POST http://127.0.0.1:8000/api/role/2/asignar_permiso
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
 Content-Type: application/json
 
 {
-    "nombre": "otra prueba"
-
+    "permisos": [2]
 }

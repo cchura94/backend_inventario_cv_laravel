@@ -28,15 +28,19 @@ Route::prefix('/v1/auth')->group(function(){
 
 Route::middleware('auth:sanctum')->group(function(){
 
-    // asignar roles a usuario
-    Route::put("/usuario/{id}/role", [UsuarioController::class, "asignarRole"]);
-    
+    // asignar role a usuario
+    Route::post("/usuario/{id}/asignar_role", [UsuarioController::class, "asignarRole"]);
+    // quitar rol a usuario
+    Route::post("/usuario/{id}/quitar_role", [UsuarioController::class, "eliminarRole"]);
+    // asignar permiso a rol
+    Route::post("role/{id}/asignar_permiso", [RoleController::class, "asignarPermiso"]);
+
     // CRUD Usuarios Api Rest
      Route::apiresource("/usuario", UsuarioController::class);
      // CRUD Roles Api Rest
      Route::apiResource("/role", RoleController::class);
      // CRUD Permission Api Rest
-     Route::apiResource("/permission", PermissionController::class);
+     Route::apiResource("/permiso", PermissionController::class);
 });
      
 

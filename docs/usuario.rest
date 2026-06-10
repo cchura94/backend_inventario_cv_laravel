@@ -1,5 +1,5 @@
 GET http://127.0.0.1:8000/api/usuario
-Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
 Accept: application/json
 
 ### Guardar
@@ -33,10 +33,19 @@ DELETE http://127.0.0.1:8000/api/usuario/3
 Authorization: Bearer 6|590fA3hncqTOunlvwnOF2W3zc6v0Nt4odVQeRRXt8bc4c554
 
 ### Asignar role
-PUT http://127.0.0.1:8000/api/usuario/1/role
+POST http://127.0.0.1:8000/api/usuario/1/asignar_role
 Authorization: Bearer 1|hr8Z9et5pbSR9QyN7PLJEuTOA5q1OIJpSgv4pegdff4ea24a
 Content-Type: application/json
 
 {
-  "roles": [1, 2]
+  "role": "GERENTE"
+}
+
+### quitar Role
+POST http://127.0.0.1:8000/api/usuario/1/quitar_role
+Authorization: Bearer 2|4M6PPePehzIoKUVsgNGUHKhCQkysMVYJsQmtp5f5d005adbf
+Content-Type: application/json
+
+{
+  "role": "ADMIN"
 }
