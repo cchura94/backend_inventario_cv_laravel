@@ -33,7 +33,7 @@ class User extends Authenticatable
     }
 
     public function roles(){
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
     public function asignarRole($role){
@@ -59,4 +59,17 @@ class User extends Authenticatable
     public function permisos(){
         return $this->roles->map->permisos->flatten()->pluck("nombre")->unique();
     }
+
+    public function persona(){
+        return $this->belongsTo(Persona::class);
+    }
+
+    public function sucursales(){
+        return $this->belongsToMany(Sucursal::class);
+    }
+
+    public function notas(){
+        return $this->belongsTo(Nota::class);
+    }
+
 }

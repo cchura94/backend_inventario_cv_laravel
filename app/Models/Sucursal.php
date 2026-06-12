@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sucursal extends Model
 {
-    //
+    public function usuarios(){
+        return $this->belongsToMany(User::class);
+    }
 }
