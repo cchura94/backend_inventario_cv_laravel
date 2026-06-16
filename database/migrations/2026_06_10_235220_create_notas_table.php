@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
             $table->dateTime("fecha");
-            $table->string("tipo_nota");
+            $table->string("tipo_nota"); // Venta, Compra, Devolucion
             $table->boolean("estado")->default(true);
             $table->text("observaciones")->nullable();
 
