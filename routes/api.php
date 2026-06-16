@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
@@ -41,7 +42,11 @@ Route::middleware('auth:sanctum')->group(function(){
      Route::apiResource("/role", RoleController::class);
      // CRUD Permission Api Rest
      Route::apiResource("/permiso", PermissionController::class);
-});
+
+     // CRUD Categorias SQL
+ });
+     
+ Route::apiResource("/categoria", CategoriaController::class);
      
 
 Route::get("/test", function(){

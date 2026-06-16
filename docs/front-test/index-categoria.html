@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+
+        <h1 class="text-3xl font-bold mb-6 text-center">
+            Gestión de Categorías
+        </h1>
+
+        <!-- Formulario -->
+        <form id="categoriaForm" class="space-y-4">
+            <input type="hidden" id="categoriaId">
+
+            <div>
+                <label class="block font-medium">Nombre</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    class="w-full border rounded p-2"
+                    required
+                >
+            </div>
+
+            <div>
+                <label class="block font-medium">Descripción</label>
+                <textarea
+                    id="descripcion"
+                    class="w-full border rounded p-2"
+                ></textarea>
+            </div>
+
+            <button
+                type="submit"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+                Guardar
+            </button>
+        </form>
+
+        <!-- Tabla -->
+        <div class="mt-8">
+            <table class="w-full border-collapse border">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border p-2">ID</th>
+                        <th class="border p-2">Nombre</th>
+                        <th class="border p-2">Descripción</th>
+                        <th class="border p-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaCategorias"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+<script>
+const API = 'http://127.0.0.1:8000/api/categoria';
+const TOKEN = 'TU_TOKEN_AQUI';
+
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${TOKEN}`,
+    'Accept': 'application/json'
+};
+
+async function cargarCategorias() {
+    const respuesta = await fetch(API, {
+        headers
+    });
+
+    const categorias = await respuesta.json();
+
+    const tabla = document.getElementById('tablaCategorias');
+    tabla.innerHTML = '';
+
+    categorias.forEach(categoria => {
+        tabla.innerHTML += `
+            <tr>
+                <td class="border p-2">${categoria.id}</td>
+                <td class="border p-2">${categoria.nombre}</td>
+                <td class="border p-2">${categoria.descripcion ?? ''}</td>
+                <td class="border p-2 space-x-2">
+                    <button
+                        onclick="editar(${categoria.id}, '${categoria.nombre}', '${categoria.descripcion ?? ''}')"
+                        class="bg-yellow-500 text-white px-2 py-1 rounded"
+                    >
+                        Editar
+                    </button>
+
+                    <button
+                        onclick="eliminar(${categoria.id})"
+                        class="bg-red-600 text-white px-2 py-1 rounded"
+                    >
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+document.getElementById('categoriaForm')
+.addEventListener('submit', async (e) => {
+
+    e.preventDefault();
+
+    const id = document.getElementById('categoriaId').value;
+
+    const datos = {
+        nombre: document.getElementById('nombre').value,
+        descripcion: document.getElementById('descripcion').value
+    };
+
+    if (id) {
+        await fetch(`${API}/${id}`, {
+            method: 'PUT',
+            headers,
+            body: JSON.stringify(datos)
+        });
+    } else {
+        await fetch(API, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(datos)
+        });
+    }
+
+    limpiarFormulario();
+    cargarCategorias();
+});
+
+function editar(id, nombre, descripcion) {
+    document.getElementById('categoriaId').value = id;
+    document.getElementById('nombre').value = nombre;
+    document.getElementById('descripcion').value = descripcion;
+}
+
+async function eliminar(id) {
+
+    if (!confirm('¿Eliminar categoría?')) return;
+
+    await fetch(`${API}/${id}`, {
+        method: 'DELETE',
+        headers
+    });
+
+    cargarCategorias();
+}
+
+function limpiarFormulario() {
+    document.getElementById('categoriaId').value = '';
+    document.getElementById('nombre').value = '';
+    document.getElementById('descripcion').value = '';
+}
+
+cargarCategorias();
+</script>
+
+</body>
+</html>
