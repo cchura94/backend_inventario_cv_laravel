@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,10 +44,17 @@ Route::middleware('auth:sanctum')->group(function(){
      // CRUD Permission Api Rest
      Route::apiResource("/permiso", PermissionController::class);
 
-     // CRUD Categorias SQL
+     // CRUD Categorias (SQL)
+     Route::apiResource("/categoria", CategoriaController::class);
+
+     // CRUD Sucursal (Query Builder)
+     Route::apiResource("/sucursal", SucursalController::class);
+
+     // CRUD Producto (Eloquent ORM)
+    
+
  });
      
- Route::apiResource("/categoria", CategoriaController::class);
      
 
 Route::get("/test", function(){

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class CategoriaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar Categorias.
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guardar nueva categoria
      */
     public function store(Request $request)
     {
@@ -38,7 +38,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Mostrar una categoria por id
      */
     public function show(string $id)
     {
@@ -53,7 +53,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Modificar categoria por id
      */
     public function update(Request $request, string $id)
     {
@@ -68,7 +68,7 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar una categoria por id
      */
     public function destroy(string $id)
     {

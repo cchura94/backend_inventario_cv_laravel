@@ -1,0 +1,40 @@
+### Listar sucursales
+GET http://127.0.0.1:8000/api/sucursal
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Guardar sucursal
+POST http://127.0.0.1:8000/api/sucursal
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nombre": "SUCURSAL CENTRAL",
+    "direccion": "Av 123 Zona ABC",
+    "telefono": "2556444",
+    "ciudad": "La Paz"
+}
+
+### Mostrar sucursal
+GET http://127.0.0.1:8000/api/sucursal/1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Modificar sucursal
+PUT http://127.0.0.1:8000/api/sucursal/1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nombre": "SUCURSAL CENTRAL ACTUALIZADA",
+    "direccion": "Av. Mariscal Santa Cruz #1234",
+    "telefono": "2223344",
+    "ciudad": "La Paz"
+}
+
+### Eliminar sucursal
+DELETE http://127.0.0.1:8000/api/sucursal/1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
