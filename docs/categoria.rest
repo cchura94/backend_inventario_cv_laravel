@@ -1,24 +1,24 @@
 ### Listar categorías
 GET http://127.0.0.1:8000/api/categoria
-Authorization: Bearer 1|EtN9a0w0B7xP1u8ZSFBuC30mzonv5CTu1LeqTltMb251b46f
+Authorization: Bearer 1|WbkmdXzP4FiMf7JN87JwVevMIWFdIMuUEBlxLG7b8354c24e
 Accept: application/json
 
 ###
 
 ### Guardar categoría
 POST http://127.0.0.1:8000/api/categoria
-Authorization: Bearer 1|EtN9a0w0B7xP1u8ZSFBuC30mzonv5CTu1LeqTltMb251b46f
+Authorization: Bearer 1|WbkmdXzP4FiMf7JN87JwVevMIWFdIMuUEBlxLG7b8354c24e
 Content-Type: application/json
 
 {
-    "nombre": "Electrónica",
-    "descripcion": "Productos electrónicos"
+    "nombre": "GASEOSAS",
+    "descripcion": "Productos"
 }
 
 ###
 
 ### Mostrar una categoría
-GET http://127.0.0.1:8000/api/categoria/3
+GET http://127.0.0.1:8000/api/categoria/1
 Authorization: Bearer 1|EtN9a0w0B7xP1u8ZSFBuC30mzonv5CTu1LeqTltMb251b46f
 Accept: application/json
 

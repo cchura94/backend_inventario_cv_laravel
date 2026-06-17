@@ -1,0 +1,73 @@
+### Listar productos
+GET http://127.0.0.1:8000/api/producto
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Listar productos paginados
+GET http://127.0.0.1:8000/api/producto?page=1&limit=10&estado=true&search=Mon
+Authorization: Bearer 1|WbkmdXzP4FiMf7JN87JwVevMIWFdIMuUEBlxLG7b8354c24e
+Accept: application/json
+
+### Filtrar por nombre
+GET http://127.0.0.1:8000/api/producto?nombre=COCA
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Filtrar por estado
+GET http://127.0.0.1:8000/api/producto?estado=true
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Filtrar por categoría
+GET http://127.0.0.1:8000/api/producto?categoria_id=1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Filtrar por nombre y categoría
+GET http://127.0.0.1:8000/api/producto?nombre=COCA&categoria_id=1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Filtrar con paginación
+GET http://127.0.0.1:8000/api/producto?nombre=COCA&estado=true&page=1&limit=10
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json
+
+### Guardar producto
+POST http://127.0.0.1:8000/api/producto
+Authorization: Bearer 1|WbkmdXzP4FiMf7JN87JwVevMIWFdIMuUEBlxLG7b8354c24e
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nombre": "Teclado HP",
+    "descripcion": "Teclado marca HP Mecanico",
+    "precio_venta_actual": 195.50,
+    "estado": true,
+    "categoria_id": 1
+}
+
+### Mostrar producto
+GET http://127.0.0.1:8000/api/producto/2
+Authorization: Bearer 1|WbkmdXzP4FiMf7JN87JwVevMIWFdIMuUEBlxLG7b8354c24e
+Accept: application/json
+
+### Modificar producto
+PUT http://127.0.0.1:8000/api/producto/1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Content-Type: application/json
+Accept: application/json
+
+{
+    "nombre": "Coca Cola 2.5L",
+    "descripcion": "Gaseosa Coca Cola presentación 2.5 litros",
+    "precio_venta_actual": 18.00,
+    "imagen": "cocacola25l.jpg",
+    "estado": "ACTIVO",
+    "categoria_id": 1
+}
+
+### Eliminar producto
+DELETE http://127.0.0.1:8000/api/producto/1
+Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Accept: application/json

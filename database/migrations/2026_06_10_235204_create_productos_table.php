@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("nombre", 200);
             $table->text("descripcion")->nullable();
             $table->decimal("precio_venta_actual", 12, 2);
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->boolean('estado');
             $table->bigInteger("categoria_id")->unsigned();
             $table->foreign("categoria_id")->references("id")->on("categorias");

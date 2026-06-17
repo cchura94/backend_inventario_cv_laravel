@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\UsuarioController;
@@ -51,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function(){
      Route::apiResource("/sucursal", SucursalController::class);
 
      // CRUD Producto (Eloquent ORM)
-    
+    Route::apiResource("/producto", ProductoController::class);
 
  });
      
