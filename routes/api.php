@@ -41,6 +41,10 @@ Route::middleware('auth:sanctum')->group(function(){
 
     // actualizar imagen de producto
     Route::post("/producto/{id}/actualiza-imagen", [ProductoController::class, "funActualizarImagen"]);
+    // exportar archivo excel (Reporte Excel)
+
+    
+
     // CRUD Usuarios Api Rest
      Route::apiresource("/usuario", UsuarioController::class);
      // CRUD Roles Api Rest
