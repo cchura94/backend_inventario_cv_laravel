@@ -58,7 +58,7 @@ class ProductoController extends Controller
         $producto->categoria_id = $request->categoria_id;
         $producto->save();
 
-        return response()->json(["mensaje" => "Producto Registrado"]);
+        return response()->json(["mensaje" => "Producto Registrado"], 201);
     }
 
     /**
@@ -75,7 +75,23 @@ class ProductoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // validar
+         $request->validate([
+            "nombre" => "required",
+            "categoria_id" => "required|exists:categorias,id"
+        ]);
+
+        // buscar por id
+        $producto = Producto::find($id);
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio_venta_actual = $request->precio_venta_actual;
+        $producto->estado = $request->estado;
+        $producto->categoria_id = $request->categoria_id;
+        $producto->update();
+
+        return response()->json(["mensaje" => "Producto Modificado"], 201);
+
     }
 
     /**
@@ -83,6 +99,34 @@ class ProductoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $producto = Producto::find($id);
+
+        $producto->estado = false;
+
+        $producto->update();
+
+        return response()->json(["mensaje" => "Producto Inactivo"], 201);
+
     }
+
+    public function funActualizarImagen($id, Request $request){
+        $request->validate(
+            [
+                "imagen" => "required|image|mimes:jpeg,png,jpg,gif|max:2048"
+            ]
+        );
+
+        if($file = $request->file("imagen")){
+            $direccion_url = time()."-".$file->getClientOriginalName();
+            $file->move("imagenes", $direccion_url);
+
+            $producto = Producto::find($id);
+            $producto->imagen = "imagenes/".$direccion_url;
+            $producto->update();
+
+            return response()->json($producto);
+
+        }
+    }
+
 }

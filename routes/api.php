@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PermissionController;
@@ -38,6 +39,8 @@ Route::middleware('auth:sanctum')->group(function(){
     // asignar permiso a rol
     Route::post("role/{id}/asignar_permiso", [RoleController::class, "asignarPermiso"]);
 
+    // actualizar imagen de producto
+    Route::post("/producto/{id}/actualiza-imagen", [ProductoController::class, "funActualizarImagen"]);
     // CRUD Usuarios Api Rest
      Route::apiresource("/usuario", UsuarioController::class);
      // CRUD Roles Api Rest
@@ -54,6 +57,9 @@ Route::middleware('auth:sanctum')->group(function(){
      // CRUD Producto (Eloquent ORM)
     Route::apiResource("/producto", ProductoController::class);
 
+    // CRUD ALmacen
+    Route::apiResource("/almacen", AlmacenController::class);
+    
  });
      
      

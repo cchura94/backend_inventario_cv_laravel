@@ -1,11 +1,11 @@
 ### Listar sucursales
 GET http://127.0.0.1:8000/api/sucursal
-Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Authorization: Bearer 3|NJpbbuzizzPKJuCDCuRYCTuMpppiS8o5343f53EScb17a851
 Accept: application/json
 
 ### Guardar sucursal
 POST http://127.0.0.1:8000/api/sucursal
-Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
+Authorization: Bearer 3|NJpbbuzizzPKJuCDCuRYCTuMpppiS8o5343f53EScb17a851
 Content-Type: application/json
 Accept: application/json
 
@@ -20,6 +20,8 @@ Accept: application/json
 GET http://127.0.0.1:8000/api/sucursal/1
 Authorization: Bearer 4|0ZZlrtgRI7Af564nvYE3ASoIKowl5qY98YIxYmd0bc9fde11
 Accept: application/json
+
+
 
 ### Modificar sucursal
 PUT http://127.0.0.1:8000/api/sucursal/1

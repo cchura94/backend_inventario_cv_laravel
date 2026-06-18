@@ -1,0 +1,86 @@
+
+Aquí tienes la estructura completa de las peticiones HTTP (formato compatible con extensiones como REST Client o Thunder Client) adaptada para el endpoint de **Almacén**, utilizando tu token actual y los campos específicos que proporcionaste.
+
+---
+
+### Listar almacenes
+
+GET http://127.0.0.1:8000/api/almacen
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Listar almacenes paginados
+
+GET http://127.0.0.1:8000/api/almacen?sucursal=1
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Filtrar por nombre
+
+GET [http://127.0.0.1:8000/api/almacen?nombre=Central](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen%3Fnombre%3DCentral)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Filtrar por código
+
+GET [http://127.0.0.1:8000/api/almacen?codigo=ALM-001](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen%3Fcodigo%3DALM-001)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Filtrar por sucursal
+
+GET [http://127.0.0.1:8000/api/almacen?sucursal_id=1](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen%3Fsucursal_id%3D1)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Filtrar por nombre y sucursal
+
+GET [http://127.0.0.1:8000/api/almacen?nombre=Central&sucursal_id=1](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen%3Fnombre%3DCentral%26sucursal_id%3D1)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Filtrar con paginación
+
+GET [http://127.0.0.1:8000/api/almacen?nombre=Central&page=1&limit=10](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen%3Fnombre%3DCentral%26page%3D1%26limit%3D10)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Guardar almacén
+
+POST http://127.0.0.1:8000/api/almacen
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Content-Type: application/json
+Accept: application/json
+
+{
+"nombre": "Almacén Central",
+"descripcion": "Almacén principal de distribución",
+"codigo": "ALM-MAIN-01",
+"sucursal_id": 1
+}
+
+### Mostrar almacén
+
+GET http://127.0.0.1:8000/api/almacen/1
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
+
+### Modificar almacén
+
+PUT [http://127.0.0.1:8000/api/almacen/1](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen/1)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Content-Type: application/json
+Accept: application/json
+
+{
+"nombre": "Almacén Central Modificado",
+"descripcion": "Descripción actualizada del almacén principal",
+"codigo": "ALM-MAIN-01-REV",
+"sucursal_id": 1
+}
+
+### Eliminar almacén
+
+DELETE [http://127.0.0.1:8000/api/almacen/1](https://www.google.com/search?q=http://127.0.0.1:8000/api/almacen/1)
+Authorization: Bearer 2|2moXMJ1eM3zTsGkJVtJfOEUu52CtpP5tjDq4UNMpef4da40b
+Accept: application/json
