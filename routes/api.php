@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlmacenController;
+use App\Http\Controllers\ClienteproveedorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PermissionController;
@@ -30,20 +31,26 @@ Route::prefix('/v1/auth')->group(function(){
     });
 });
 
-Route::middleware('auth:sanctum')->group(function(){
+    Route::get("/producto/exportar/pdf", [ProductoController::class, "funExportarProductosPDF"]);
 
+Route::middleware('auth:sanctum')->group(function(){
+    
     // asignar role a usuario
     Route::post("/usuario/{id}/asignar_role", [UsuarioController::class, "asignarRole"]);
     // quitar rol a usuario
     Route::post("/usuario/{id}/quitar_role", [UsuarioController::class, "eliminarRole"]);
     // asignar permiso a rol
     Route::post("role/{id}/asignar_permiso", [RoleController::class, "asignarPermiso"]);
-
+    
     // actualizar imagen de producto
     Route::post("/producto/{id}/actualiza-imagen", [ProductoController::class, "funActualizarImagen"]);
-    // exportar archivo excel (Reporte Excel)
-
     
+    // exportar archivo excel (Reporte Excel)
+    Route::get("/producto/exportar/excel", [ProductoController::class, "funExportarProductosExcel"]);
+
+    // exportar archivo pdf (Reporte PDF)
+
+
 
     // CRUD Usuarios Api Rest
      Route::apiresource("/usuario", UsuarioController::class);
@@ -63,6 +70,9 @@ Route::middleware('auth:sanctum')->group(function(){
 
     // CRUD ALmacen
     Route::apiResource("/almacen", AlmacenController::class);
+
+    // CRUD clienteproveedores
+    Route::apiResource('clienteproveedores', ClienteproveedorController::class);
     
  });
      

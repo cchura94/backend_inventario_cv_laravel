@@ -1,0 +1,46 @@
+### Listar
+GET http://127.0.0.1:8000/api/clienteproveedores
+Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Accept: application/json
+
+### Crear
+POST http://127.0.0.1:8000/api/clienteproveedores
+Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Content-Type: application/json
+Accept: application/json
+
+{
+    "tipo": "Cliente",
+    "razon_social": "Empresa ABC SRL",
+    "nro_identificacion": "12345678",
+    "telefono": "76543210",
+    "direccion": "Av. Siempre Viva 123",
+    "correo": "contacto@empresaabc.com",
+    "estado": true
+}
+
+### Mostrar
+GET http://127.0.0.1:8000/api/clienteproveedores/1
+Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Accept: application/json
+
+### Modificar
+PUT http://127.0.0.1:8000/api/clienteproveedores/1
+Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Content-Type: application/json
+Accept: application/json
+
+{
+    "tipo": "Proveedor",
+    "razon_social": "Empresa ABC SRL Modificada",
+    "nro_identificacion": "87654321",
+    "telefono": "71234567",
+    "direccion": "Calle Nueva 456",
+    "correo": "ventas@empresaabc.com",
+    "estado": true
+}
+
+### Eliminar
+DELETE http://127.0.0.1:8000/api/clienteproveedores/1
+Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Accept: application/json

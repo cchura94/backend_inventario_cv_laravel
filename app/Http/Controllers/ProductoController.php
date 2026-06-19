@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductosExport;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ProductoController extends Controller
 {
@@ -129,4 +132,15 @@ class ProductoController extends Controller
         }
     }
 
+    public function funExportarProductosExcel(){
+        return Excel::download(new ProductosExport, 'lista_productos.xlsx');
+    }
+
+    public function funExportarProductosPDF(){
+
+        $productos = Producto::with('categoria')->get();
+
+         $pdf = Pdf::loadView('pdf.productos', ["productos" => $productos]);
+        return $pdf->download('lista_productos.pdf');
+    }
 }
