@@ -1,0 +1,30 @@
+### NOTA COMPRA
+POST http://127.0.0.1:8000/api/nota
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 7|Wzbm03Z2zhvoS5HCFreQ7Boatm4XletD7CJ1LhgS3471969a
+
+{
+    "tipo_nota": "compra",
+    "observaciones": "NINGUNO",
+    "clienteproveedor_id": 1,
+    "movimientos": [
+        { "almacen_id": 1, "producto_id": 4, "cantidad": 20, "tipo_movimiento": "ingreso", "precio_compra": 198.98, "precio_venta": 0.00, "observaciones": "NINGUNO" }
+    ]
+}
+
+### NOTA VENTA
+
+POST http://127.0.0.1:8000/api/nota
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 7|Wzbm03Z2zhvoS5HCFreQ7Boatm4XletD7CJ1LhgS3471969a
+
+{
+    "tipo_nota": "venta",
+    "observaciones": "NINGUNO",
+    "clienteproveedor_id": 2,
+    "movimientos": [
+        { "almacen_id": 1, "producto_id": 4, "cantidad": 5, "tipo_movimiento": "salida", "precio_compra": 0.00, "precio_venta": 250.00, "observaciones": "NINGUNO" }
+    ]
+}

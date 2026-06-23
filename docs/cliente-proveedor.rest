@@ -1,11 +1,11 @@
 ### Listar
 GET http://127.0.0.1:8000/api/clienteproveedores
-Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Authorization: Bearer 7|Wzbm03Z2zhvoS5HCFreQ7Boatm4XletD7CJ1LhgS3471969a
 Accept: application/json
 
 ### Crear
 POST http://127.0.0.1:8000/api/clienteproveedores
-Authorization: Bearer 5|ktrAvOh8cWqq8mVuz6WBWipu0QoO7p0idId4BoOw7d6d3087
+Authorization: Bearer 7|Wzbm03Z2zhvoS5HCFreQ7Boatm4XletD7CJ1LhgS3471969a
 Content-Type: application/json
 Accept: application/json
 

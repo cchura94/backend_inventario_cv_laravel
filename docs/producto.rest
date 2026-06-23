@@ -1,6 +1,6 @@
 ### Listar productos
 GET http://127.0.0.1:8000/api/producto
-Authorization: Bearer 4|05chesazVOjbuFzXCAA1jQX0VQeJPsXx7BH3hYoJfca89221
+Authorization: Bearer 7|Wzbm03Z2zhvoS5HCFreQ7Boatm4XletD7CJ1LhgS3471969a
 Accept: application/json
 
 ### Listar productos paginados

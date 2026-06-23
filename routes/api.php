@@ -4,6 +4,7 @@ use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\ClienteproveedorController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
@@ -74,6 +75,9 @@ Route::middleware('auth:sanctum')->group(function(){
     // CRUD clienteproveedores
     Route::apiResource('clienteproveedores', ClienteproveedorController::class);
     
+    // Compras y Ventas
+    Route::apiResource("nota", NotaController::class);
+
  });
      
      

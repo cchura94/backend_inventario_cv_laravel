@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger("user_id")->unsigned();
             $table->bigInteger("clienteproveedor_id")->unsigned();
             $table->foreign("user_id")->references("id")->on("users");
-            $table->foreign("clienteproveedor_id")->references("id")->on("users");
+            $table->foreign("clienteproveedor_id")->references("id")->on("clienteproveedors");
 
             $table->timestamps();
         });
