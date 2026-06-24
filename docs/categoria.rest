@@ -4,6 +4,9 @@ Authorization: Bearer 1|qTomhcpJlIN6XcelzFIFgOBWOExAxsuKU0Ip1mJk59a0b1e4
 Accept: application/json
 
 ###
+GET https://backinventarios.blumbit.net/api/categoria
+Authorization: Bearer 1|BjB3yPlmPPCQ3dvffm2anrKpPrYoKsYVTcuzhQQY1da2cbd9
+Accept: application/json
 
 ### Guardar categoría
 POST http://127.0.0.1:8000/api/categoria
