@@ -6,15 +6,43 @@ use App\Models\Nota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class NotaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Nota::with(['user', 'clienteproveedor', 'movimientos']);
+
+        // filtros
+        if($request->has('tipo_nota')){
+            $query->where('tipo_nota', $request->tipo_nota);
+        }
+
+        
+        if($request->has('estado')){
+            $query->where('estado', $request->estado);
+        }
+
+        
+        if($request->has('clienteproveedor_id')){
+            $query->where('clienteproveedor_id', $request->clienteproveedor_id);
+        }
+
+        if($request->has('user_id')){
+            $query->where('user_id', $request->user_id);
+        }
+
+        if($request->has(['fecha_inicio', 'fecha_fin'])){
+            $query->where('fecha', [$request->fecha_inicio, $request->fecha_fin ]);
+        }
+
+        
+        $notas = $query->orderByDesc('fecha')->paginate(10);
+        return response()->json($notas);
     }
 
     /**
@@ -87,7 +115,7 @@ class NotaController extends Controller
                         if($pivot->cantidad_actual < $mov['cantidad']){
                             throw new \Exception("Stock insuficiente en salida");
                         }
-                        $nuevaCantidad = $nuevaCantidad - $mov['catidad'];
+                        $nuevaCantidad = $nuevaCantidad - $mov['cantidad'];
                     }
 
                     DB::table("almacen_producto")->where("almacen_id", $mov['almacen_id'])
@@ -106,6 +134,14 @@ class NotaController extends Controller
             return response()->json(["mensaje" => "Error al registrar la nota", "error" => $e->getMessage()], 500);
         }
 
+    }
+
+
+    public function funGenerarNota($id){
+        $nota = Nota::with(['user', 'clienteproveedor', 'movimientos'])->find($id);
+  
+         $pdf = Pdf::loadView('pdf.nota-recibo', ["nota" => $nota]);
+        return $pdf->download('nota-recibo.pdf');
     }
 
     /**

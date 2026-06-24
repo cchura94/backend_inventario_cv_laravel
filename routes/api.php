@@ -32,7 +32,6 @@ Route::prefix('/v1/auth')->group(function(){
     });
 });
 
-    Route::get("/producto/exportar/pdf", [ProductoController::class, "funExportarProductosPDF"]);
 
 Route::middleware('auth:sanctum')->group(function(){
     
@@ -48,10 +47,12 @@ Route::middleware('auth:sanctum')->group(function(){
     
     // exportar archivo excel (Reporte Excel)
     Route::get("/producto/exportar/excel", [ProductoController::class, "funExportarProductosExcel"]);
-
+    
     // exportar archivo pdf (Reporte PDF)
-
-
+    Route::get("/producto/exportar/pdf", [ProductoController::class, "funExportarProductosPDF"]);
+    
+    // reporte nota por id
+    Route::get("/nota/{id}/exportar-nota", [NotaController::class, "funGenerarNota"]);
 
     // CRUD Usuarios Api Rest
      Route::apiresource("/usuario", UsuarioController::class);

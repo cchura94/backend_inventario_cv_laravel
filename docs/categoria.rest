@@ -1,6 +1,6 @@
 ### Listar categorías
 GET http://127.0.0.1:8000/api/categoria
-Authorization: Bearer 1|WbkmdXzP4FiMf7JN87JwVevMIWFdIMuUEBlxLG7b8354c24e
+Authorization: Bearer 1|qTomhcpJlIN6XcelzFIFgOBWOExAxsuKU0Ip1mJk59a0b1e4
 Accept: application/json
 
 ###

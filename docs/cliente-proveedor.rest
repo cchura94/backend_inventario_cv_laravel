@@ -1,6 +1,6 @@
 ### Listar
 GET http://127.0.0.1:8000/api/clienteproveedores
-Authorization: Bearer 7|Wzbm03Z2zhvoS5HCFreQ7Boatm4XletD7CJ1LhgS3471969a
+Authorization: Bearer 1|qTomhcpJlIN6XcelzFIFgOBWOExAxsuKU0Ip1mJk59a0b1e4
 Accept: application/json
 
 ### Crear
